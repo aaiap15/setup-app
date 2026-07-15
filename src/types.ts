@@ -7,8 +7,10 @@ export interface Axes {
 
 export type Category =
   | 'case' | 'pcb' | 'switch' | 'keycap' | 'stabilizer' | 'deskmat'
+  | 'monitor' | 'mouse' | 'headset'   // 데스크 장비 (POV에 반영)
 export type Release = 'in_stock' | 'group_buy' | 'pre_order' | 'discontinued'
 export type SoundProfile = 'thocky' | 'clacky' | 'marble'
+export type MonitorForm = 'standard' | 'ultrawide' | 'dual' | 'gaming'
 
 export interface Product {
   id: string
@@ -23,6 +25,7 @@ export interface Product {
     hotswap?: boolean
     pin?: number
     cover?: string[]
+    form?: MonitorForm   // 모니터 형태
   }
   sound?: SoundProfile
   ax: Axes

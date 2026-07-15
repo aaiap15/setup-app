@@ -99,6 +99,15 @@ export function recommend(target: Axes, f: RecFilters): { picks: Picks; words: s
     return s
   })
   if (sw) picks.switch = sw.id
+  // 데스크 장비 — 취향에 맞게 (모니터·마우스 기본, 헤드셋은 화려/게이밍일 때)
+  const mon = pickBest(byCat('monitor'), (p) => -dist(p.ax, target))
+  if (mon) picks.monitor = mon.id
+  const mouse = pickBest(byCat('mouse'), (p) => -dist(p.ax, target))
+  if (mouse) picks.mouse = mouse.id
+  if (f.use === 'game' || target.ql > 0.6) {
+    const hs = pickBest(byCat('headset'), (p) => -dist(p.ax, target))
+    if (hs) picks.headset = hs.id
+  }
   return { picks, words: vibeWords(target) }
 }
 

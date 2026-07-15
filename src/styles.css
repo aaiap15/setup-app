@@ -245,9 +245,16 @@ button { font-family: inherit; cursor: pointer; color: inherit; }
   border-radius: 9px; background: linear-gradient(#15181f, #0c0e13); border: 1px solid rgba(255,255,255,.06);
   box-shadow: 0 10px 40px rgba(0,0,0,.6); overflow: hidden; z-index: 2; }
 .pov__screen { position: absolute; inset: 6%; border-radius: 4px;
-  background: linear-gradient(155deg, color-mix(in srgb, var(--a) 60%, #7a97d8), color-mix(in srgb, var(--a) 45%, #26314c));
-  box-shadow: 0 0 30px color-mix(in srgb, var(--a) 45%, #5a7ac0); opacity: .9; transition: opacity .35s; }
+  background: linear-gradient(155deg, color-mix(in srgb, var(--mon) 60%, #7a97d8), color-mix(in srgb, var(--mon) 45%, #26314c));
+  box-shadow: 0 0 30px color-mix(in srgb, var(--mon) 45%, #5a7ac0); opacity: .9; transition: opacity .35s; }
 .pov.playing .pov__screen { opacity: 1; }
+/* 모니터 형태 */
+.pov__monitor.ultrawide { width: 74%; height: 25%; }
+.pov__monitor.gaming .pov__screen { box-shadow: 0 0 40px color-mix(in srgb, var(--mon) 70%, transparent); opacity: 1; }
+.pov__dual { position: absolute; left: 50%; top: 7%; transform: translateX(-50%); width: 72%; height: 28%; display: flex; gap: 3%; z-index: 2; }
+.pov__dual .pov__monitor { position: static; transform: none; width: 50%; height: 100%; }
+.pov__dual .mL { transform: perspective(400px) rotateY(9deg); }
+.pov__dual .mR { transform: perspective(400px) rotateY(-9deg); }
 .pov__stand { position: absolute; left: 50%; top: 35%; transform: translateX(-50%); width: 9%; height: 8%;
   background: linear-gradient(#14171d, #0d0f14); border-radius: 0 0 4px 4px; z-index: 2; }
 .pov__beam { position: absolute; left: 50%; top: 30%; transform: translateX(-50%); width: 90%; height: 60%;
@@ -260,13 +267,22 @@ button { font-family: inherit; cursor: pointer; color: inherit; }
   clip-path: polygon(16% 0, 84% 0, 100% 100%, 0 100%);
   background: linear-gradient(#000 0%, color-mix(in srgb, var(--mat) 60%, #0c0e12) 60%, color-mix(in srgb, var(--mat) 80%, #14161c) 100%);
   box-shadow: 0 -2px 20px rgba(0,0,0,.4); }
-/* 마우스 (오른쪽, 매트 위) */
+/* 마우스 (오른쪽, 매트 위) — 고른 마우스 색 반영 */
 .pov__mouse { position: absolute; right: 12%; bottom: 12%; width: 12%; aspect-ratio: 1/1.42;
   border-radius: 48% 48% 44% 44% / 40% 40% 60% 60%; z-index: 3;
-  background: radial-gradient(70% 60% at 40% 25%, color-mix(in srgb, var(--a) 30%, #2a2e37), #16181e 75%);
-  box-shadow: inset 0 2px 4px rgba(255,255,255,.08), 0 6px 14px rgba(0,0,0,.55); transform: rotate(-6deg); }
+  background: radial-gradient(70% 60% at 40% 25%, color-mix(in srgb, var(--mouse) 55%, #23272f), #14161c 78%);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,.1), 0 6px 14px rgba(0,0,0,.55); transform: rotate(-6deg); }
+.pov__mouse.picked { box-shadow: inset 0 2px 4px rgba(255,255,255,.12), 0 6px 16px rgba(0,0,0,.55), 0 0 16px color-mix(in srgb, var(--mouse) 40%, transparent); }
 .pov__mwheel { position: absolute; left: 50%; top: 12%; transform: translateX(-50%); width: 8%; height: 16%;
-  border-radius: 99px; background: color-mix(in srgb, var(--a) 60%, #444); box-shadow: 0 0 6px color-mix(in srgb, var(--a) 50%, transparent); }
+  border-radius: 99px; background: color-mix(in srgb, var(--mouse) 70%, #555); box-shadow: 0 0 6px color-mix(in srgb, var(--mouse) 50%, transparent); }
+/* 헤드셋 (책상 오른편, 고르면 놓임) */
+.pov__headset { position: absolute; right: 24%; bottom: 30%; width: 13%; aspect-ratio: 1.15; z-index: 3; transform: rotate(-4deg); }
+.hs__band { position: absolute; top: 0; left: 16%; right: 16%; height: 46%;
+  border: 4px solid color-mix(in srgb, var(--hs) 55%, #2a2c31); border-bottom: 0; border-radius: 50% 50% 0 0; }
+.hs__cup { position: absolute; bottom: 8%; width: 30%; height: 44%; border-radius: 34% / 30%;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--hs) 70%, #2a2d34), color-mix(in srgb, var(--hs) 45%, #16181d));
+  box-shadow: inset 0 1px 2px rgba(255,255,255,.14), 0 3px 8px rgba(0,0,0,.5); }
+.hs__cup.l { left: 6%; } .hs__cup.r { right: 6%; }
 /* 커피잔 (왼쪽) */
 .pov__mug { position: absolute; left: 9%; bottom: 16%; width: 11%; aspect-ratio: 1; z-index: 3; }
 .pov__mug::before { content: ''; position: absolute; bottom: 0; left: 8%; width: 66%; height: 60%; border-radius: 12% 12% 26% 26%;

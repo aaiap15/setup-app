@@ -48,6 +48,9 @@ export function Builder() {
     if (p.cat === 'keycap') return '오늘의 색'
     if (p.cat === 'case') return '단단한 무게감'
     if (p.cat === 'deskmat') return '책상의 바탕'
+    if (p.cat === 'monitor') return '시야의 배경'
+    if (p.cat === 'mouse') return '손의 무게'
+    if (p.cat === 'headset') return '소리의 몰입'
     return ''
   }
 

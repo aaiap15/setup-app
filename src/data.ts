@@ -61,6 +61,23 @@ export const PRODUCTS: Product[] = [
   { id: 's7', cat: 'switch', brand: 'Outemu', name: '갈축', price: 11000, accent: '#5b4632', release: 'in_stock', attrs: { pin: 3 }, sound: 'thocky', ax: { mm: .3, wc: .45, ql: .35 } },
   { id: 's8', cat: 'switch', brand: 'Gateron', name: '적축', price: 14000, accent: '#8b2f2f', release: 'in_stock', attrs: { pin: 5 }, sound: 'marble', ax: { mm: .3, wc: .4, ql: .2 } },
   { id: 's9', cat: 'switch', brand: 'Kailh', name: '청축', price: 13000, accent: '#2f5a8b', release: 'in_stock', attrs: { pin: 3 }, sound: 'clacky', ax: { mm: .5, wc: .45, ql: .85 } },
+
+  // ── 모니터 ──
+  { id: 'mon1', cat: 'monitor', brand: 'LG', name: '27" 4K 미니멀', price: 480000, accent: '#3a4150', release: 'in_stock', attrs: { form: 'standard' }, ax: { mm: .25, wc: .35, ql: .25 } },
+  { id: 'mon2', cat: 'monitor', brand: 'Dell', name: '34" 울트라와이드', price: 690000, accent: '#2f3a4a', release: 'in_stock', attrs: { form: 'ultrawide' }, ax: { mm: .35, wc: .3, ql: .35 } },
+  { id: 'mon3', cat: 'monitor', brand: 'BenQ', name: '듀얼 27" 세팅', price: 820000, accent: '#28303e', release: 'in_stock', attrs: { form: 'dual' }, ax: { mm: .7, wc: .35, ql: .5 } },
+  { id: 'mon4', cat: 'monitor', brand: 'Samsung', name: '27" 게이밍 240Hz', price: 560000, accent: '#6a4bd0', release: 'in_stock', attrs: { form: 'gaming' }, ax: { mm: .7, wc: .4, ql: .85 } },
+
+  // ── 마우스 ──
+  { id: 'ms1', cat: 'mouse', brand: 'Logitech', name: '미니멀 화이트 무선', price: 89000, accent: '#d3d5da', release: 'in_stock', attrs: {}, ax: { mm: .2, wc: .4, ql: .25 } },
+  { id: 'ms2', cat: 'mouse', brand: 'Razer', name: '게이밍 RGB (블랙)', price: 129000, accent: '#6a4bd0', release: 'in_stock', attrs: {}, ax: { mm: .7, wc: .4, ql: .9 } },
+  { id: 'ms3', cat: 'mouse', brand: '레트로', name: '베이지 무선 마우스', price: 59000, accent: '#cdba94', release: 'in_stock', attrs: {}, ax: { mm: .3, wc: .85, ql: .3 } },
+  { id: 'ms4', cat: 'mouse', brand: 'Pulsar', name: '다크 에르고', price: 99000, accent: '#2a2e37', release: 'in_stock', attrs: {}, ax: { mm: .25, wc: .35, ql: .3 } },
+
+  // ── 헤드셋 ──
+  { id: 'hs1', cat: 'headset', brand: 'Audeze', name: '오픈형 우드 헤드셋', price: 340000, accent: '#6b4a2e', release: 'in_stock', attrs: {}, ax: { mm: .3, wc: .85, ql: .3 } },
+  { id: 'hs2', cat: 'headset', brand: 'SteelSeries', name: '게이밍 RGB 헤드셋', price: 190000, accent: '#6a4bd0', release: 'in_stock', attrs: {}, ax: { mm: .7, wc: .4, ql: .9 } },
+  { id: 'hs3', cat: 'headset', brand: 'HyperX', name: '미니멀 화이트 헤드셋', price: 150000, accent: '#cfd2d8', release: 'in_stock', attrs: {}, ax: { mm: .25, wc: .4, ql: .3 } },
 ]
 
 export const ARCHES: Archetype[] = [
@@ -77,8 +94,11 @@ export const SLOTS: { key: SlotKey; label: string; req: boolean }[] = [
   { key: 'pcb', label: 'PCB', req: true },
   { key: 'switch', label: '스위치', req: true },
   { key: 'keycap', label: '키캡', req: true },
-  { key: 'stabilizer', label: '스테빌', req: false },
+  { key: 'monitor', label: '모니터', req: false },
+  { key: 'mouse', label: '마우스', req: false },
+  { key: 'headset', label: '헤드셋', req: false },
   { key: 'deskmat', label: '데스크매트', req: false },
+  { key: 'stabilizer', label: '스테빌', req: false },
 ]
 
 export const REL_KO: Record<string, string> = { in_stock: '재고', group_buy: '공구', pre_order: '예약', discontinued: '단종' }
@@ -98,16 +118,16 @@ export const SETUPS: Setup[] = [
   // ── 앵커: 꿈을 판다 (갤러리의 천장) ──
   { id: 'a1', title: '티타늄 위의 정적', caption: '새벽 3시, 아무 소리도 남지 않은 책상', creator: '@endgame', moodId: 'm1', tier: 'anchor', space: '작업실', tags: ['다크', '미니멀', '드림'],
     story: '몇 년을 돌아 결국 여기 도착했어요. 티타늄의 묵직함 위로 아무 소리도 남지 않는 밤, 그게 제 엔드게임입니다.',
-    picks: { case: 'c6', pcb: 'p1', switch: 's6', keycap: 'k7' } },
+    picks: { case: 'c6', pcb: 'p1', switch: 's6', keycap: 'k7', monitor: 'mon1', mouse: 'ms4' } },
   { id: 'a2', title: '월넛 마스터피스', caption: '아침 햇살이 황동에 닿는 그 순간', creator: '@atelier', moodId: 'm4', tier: 'anchor', space: '작업실', tags: ['웜', '우드', '드림'],
     story: '나무의 결과 황동의 반짝임. 아침 햇살이 상판에 닿는 15분을 위해 이 책상을 완성했어요.',
-    picks: { case: 'c7', pcb: 'p1', switch: 's6', keycap: 'k8' } },
+    picks: { case: 'c7', pcb: 'p1', switch: 's6', keycap: 'k8', monitor: 'mon2', mouse: 'ms3', headset: 'hs1' } },
   { id: 'a3', title: '퍼플 엔드게임', caption: '방 전체가 보라색으로 잠기는 밤', creator: '@nocturne', moodId: 'm3', tier: 'anchor', space: '게이밍 데스크', tags: ['RGB', '게이밍', '드림'],
     story: '언더글로우가 켜지면 방이 통째로 보라색이 돼요. 승패보다 이 장면 앞에 앉는 순간이 좋아서 계속 켜둡니다.',
-    picks: { case: 'c9', pcb: 'p4', switch: 's6', keycap: 'k6' } },
+    picks: { case: 'c9', pcb: 'p4', switch: 's6', keycap: 'k6', monitor: 'mon3', mouse: 'ms2', headset: 'hs2' } },
   { id: 'a4', title: '화이트룸, 완벽한 침묵', caption: '아무것도 없는 방, 흰 키보드 하나', creator: '@snowroom', moodId: 'm5', tier: 'anchor', space: '침실', tags: ['모노', '미니멀', '드림'],
     story: '색도 소리도 다 덜어냈어요. 흰 방에 흰 키보드 하나만 남으니, 오히려 하루가 선명해집니다.',
-    picks: { case: 'c8', pcb: 'p2', switch: 's6', keycap: 'k7' } },
+    picks: { case: 'c8', pcb: 'p2', switch: 's6', keycap: 'k7', monitor: 'mon1', mouse: 'ms1', headset: 'hs3' } },
 
   // ── 주력: 행동을 판다 ("어? 이 정도면 나도") ──
   { id: 'm01', title: '마지막 커밋의 책상', caption: '새벽 2시, 오늘의 마지막 한 줄', creator: '@nightkeys', moodId: 'm1', tier: 'main', space: '원룸 구석', tags: ['다크', '미니멀'],
