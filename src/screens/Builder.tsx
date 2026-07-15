@@ -57,6 +57,8 @@ export function Builder() {
 
       {banner && <div className="banner"><span>✨</span><span>{banner}</span></div>}
 
+      <div className="build-grid">
+      <div className="build-left">
       {/* 라이브 프리뷰 — 내 의자에서 본 내 책상 (1인칭 POV) */}
       <div className="bhero">
         <DeskPOV picks={picks} />
@@ -70,7 +72,9 @@ export function Builder() {
         </div>
         <button className="dice" onClick={() => recommendInto(tasteVec(), '내 취향', true)} aria-label="다른 조합">🎲</button>
       </div>
+      </div>
 
+      <div className="build-right">
       {warns.length > 0 && (
         <div className="compat">
           {warns.map((i, k) => <div key={k} className={'cmsg ' + i.sev}><span>{i.sev === 'warn' ? '⚠️' : '⛔'}</span><span>{i.msg}</span></div>)}
@@ -112,6 +116,8 @@ export function Builder() {
             )
           })}
         </div>}
+      </div>
+      </div>
     </div>
   )
 }

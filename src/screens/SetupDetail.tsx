@@ -32,13 +32,17 @@ export function SetupDetail({ id }: { id: string }) {
     <div className="shell detail" style={{ ['--a' as string]: accent, ['--theme-accent' as string]: accent }}>
       <div className="topbar"><button className="reset" onClick={() => navigate('/feed')}>← 둘러보기</button></div>
 
+      <div className="detail-grid">
+      <div className="detail-left">
       <div className="detail__hero">
         <KeebScene accent={accent} seed={s.id.charCodeAt(2)} {...sceneCtx(s)} />
         <div className="detail__scrim" />
         <p className="detail__caption">{s.caption}</p>
         <button className="listen-big" onClick={() => thock(s.picks.switch ? byId(s.picks.switch)?.sound : 'thocky')}>🔊 타건음 듣기</button>
       </div>
+      </div>
 
+      <div className="detail-right">
       <div className="detail__head">
         <h1 className="detail__title">{s.title}</h1>
         <div className="detail__by">{s.creator} · {mood?.emoji} {mood?.name} · {s.space}</div>
@@ -67,6 +71,8 @@ export function SetupDetail({ id }: { id: string }) {
           {liked ? '♥ 저장됨' : '♡ 저장'}
         </button>
         <button className="cta" onClick={() => { applySetup(s); navigate('/build') }}>✨ 이 셋업으로 내 것 꾸미기</button>
+      </div>
+      </div>
       </div>
 
       {related.length > 0 && <>

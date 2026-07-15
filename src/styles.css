@@ -441,3 +441,51 @@ button { font-family: inherit; cursor: pointer; color: inherit; }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 .empty { color: var(--ink-soft); font-size: 14px; padding: 24px 0; text-align: center; }
+
+/* ============================================================
+   반응형 — 데스크톱/태블릿/모바일
+   ============================================================ */
+.build-grid, .detail-grid { display: block; }
+
+/* 태블릿+ : 피드 열 증가, 진단 그리드 확장 */
+@media (min-width: 720px) {
+  .pick-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* 데스크톱: 넓은 컨테이너 · 상단 플로팅 독 · 2단 레이아웃 */
+@media (min-width: 900px) {
+  :root { --maxw: 1160px; }
+  .main { padding-bottom: 40px; }
+
+  /* 하단 탭 → 상단 중앙 플로팅 독 */
+  .nav { top: 16px; bottom: auto; left: 50%; right: auto; transform: translateX(-50%);
+    width: auto; border: 1px solid var(--line); border-top: 1px solid var(--line);
+    border-radius: 99px; box-shadow: var(--shadow); overflow: hidden; }
+  .nav__in { height: 50px; padding: 0 8px; }
+  .nav__tab { flex-direction: row; gap: 8px; padding: 0 20px; border-radius: 99px; font-size: 13.5px; }
+  .nav__tab .ic { font-size: 16px; }
+  .shell { padding-top: 8px; }
+
+  /* 피드: 열 증가 + 텍스트 폭 제한 */
+  .feed { columns: 4; }
+  .h1 { max-width: 20ch; }
+
+  /* 꾸미기: 프리뷰(좌, 고정) + 컨트롤(우) */
+  .build-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 26px; align-items: start; }
+  .build-left { position: sticky; top: 84px; }
+  .bhero { margin-bottom: 0; }
+
+  /* 상세: 히어로(좌, 고정) + 정보(우) */
+  .detail-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 30px; align-items: start; }
+  .detail-left { position: sticky; top: 84px; }
+  .detail__hero { margin-bottom: 0; aspect-ratio: 4/3; }
+  .related { grid-template-columns: repeat(4, 1fr); }
+  .pick-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (min-width: 1180px) {
+  .feed { columns: 5; }
+}
+
+/* 큰 화면에서 진단/결과는 과도하게 넓지 않게 */
+.diag, .result { max-width: 620px; margin-inline: auto; }
