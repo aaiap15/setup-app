@@ -103,13 +103,42 @@ button { font-family: inherit; cursor: pointer; color: inherit; }
    절차적 셋업 씬 — 분위기 있는 제품샷 (KeebScene)
    ============================================================ */
 .scene { position: absolute; inset: 0; overflow: hidden;
-  background: linear-gradient(165deg, color-mix(in srgb, var(--a) 14%, #0b0d11) 0%, #0a0c10 72%); }
+  background: linear-gradient(168deg, color-mix(in srgb, var(--a) 12%, #0a0c10) 0%, #070809 74%); }
+.scene.night { background: linear-gradient(168deg, color-mix(in srgb, var(--a) 16%, #080a10) 0%, #05060a 76%); }
+/* 창밖 어스름 */
+.scene__window { position: absolute; top: -6%; right: -8%; width: 46%; height: 56%; border-radius: 40% 8% 40% 40%;
+  background: radial-gradient(70% 80% at 70% 20%, rgba(90,120,180,.28), transparent 70%); filter: blur(8px); opacity: .8; }
+.scene.warm .scene__window { background: radial-gradient(70% 80% at 70% 20%, rgba(220,150,90,.3), transparent 70%); }
+/* 모니터 + 화면 글로우 (책상의 주 광원) */
+.scene__monitor { position: absolute; left: 50%; top: 7%; transform: translateX(-50%); width: 62%; height: 26%;
+  border-radius: 8px 8px 3px 3px; background: linear-gradient(#14171d, #0c0e12); border: 1px solid rgba(255,255,255,.05);
+  box-shadow: 0 6px 30px rgba(0,0,0,.5); overflow: hidden; }
+.scene__screen { position: absolute; inset: 6% 5%; border-radius: 3px;
+  background: linear-gradient(150deg, color-mix(in srgb, var(--a) 55%, #6a8bd0) , color-mix(in srgb, var(--a) 40%, #24304a));
+  opacity: .85; box-shadow: 0 0 24px color-mix(in srgb, var(--a) 40%, #4a6ab0); transition: opacity .35s; }
+.scene.playing .scene__screen { opacity: 1; }
+.scene__beam { position: absolute; left: 50%; top: 12%; transform: translateX(-50%); width: 78%; height: 78%;
+  background: radial-gradient(60% 60% at 50% 0%, color-mix(in srgb, var(--a) 30%, rgba(120,150,210,.22)), transparent 66%);
+  filter: blur(6px); }
 .scene__glow { position: absolute; inset: -12%;
-  background:
-    radial-gradient(56% 44% at var(--gx, 40%) 18%, color-mix(in srgb, var(--a) 72%, transparent), transparent 66%),
-    radial-gradient(90% 70% at 50% 108%, color-mix(in srgb, var(--a) 40%, transparent), transparent 60%);
-  opacity: .95; transition: opacity .35s; }
-.scene.playing .scene__glow { opacity: 1.2; }
+  background: radial-gradient(58% 46% at var(--gx, 40%) 60%, color-mix(in srgb, var(--a) 46%, transparent), transparent 68%);
+  opacity: .9; transition: opacity .35s; }
+.scene.playing .scene__glow { opacity: 1.15; }
+/* 스탠드 조명 */
+.scene__lamp { position: absolute; top: 4%; width: 42%; height: 44%;
+  background: radial-gradient(50% 50% at 50% 30%, rgba(255,200,130,.34), transparent 68%); filter: blur(4px); }
+.scene__lamp--left { left: -8%; } .scene__lamp--right { right: -8%; }
+/* 김 나는 커피잔 */
+.scene__mug { position: absolute; left: 8%; bottom: 12%; width: 15%; aspect-ratio: 1; }
+.mug__cup { position: absolute; bottom: 0; left: 12%; width: 62%; height: 46%; border-radius: 12% 12% 22% 22%;
+  background: linear-gradient(#2a2b30, #141519); box-shadow: inset 0 2px 3px rgba(255,255,255,.06), 0 2px 8px rgba(0,0,0,.5); }
+.mug__cup::after { content: ''; position: absolute; right: -22%; top: 20%; width: 30%; height: 46%; border: 3px solid #23242a; border-left: 0; border-radius: 0 60% 60% 0; }
+.mug__steam { position: absolute; bottom: 48%; width: 3px; height: 46%; border-radius: 3px;
+  background: linear-gradient(to top, transparent, rgba(255,255,255,.22), transparent); filter: blur(2px); }
+.mug__steam.s1 { left: 32%; animation: steam 3.4s ease-in-out infinite; }
+.mug__steam.s2 { left: 48%; height: 38%; animation: steam 4s ease-in-out .8s infinite; }
+@keyframes steam { 0% { opacity: 0; transform: translateY(4px) scaleY(.7); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(-8px) scaleY(1.15); } }
+@media (prefers-reduced-motion: reduce) { .mug__steam { opacity: .5; animation: none; } }
 .scene__deck { position: absolute; left: 50%; bottom: -2%; width: 172%; transform: translateX(-50%); perspective: 760px; }
 .scene__board { transform-origin: center bottom; transform-style: preserve-3d;
   width: 100%; aspect-ratio: 14 / 5.6; display: flex; flex-direction: column; gap: 3.2%; padding: 3%; }
@@ -147,11 +176,18 @@ button { font-family: inherit; cursor: pointer; color: inherit; }
 .mood:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.5), 0 0 0 1px color-mix(in srgb, var(--a) 35%, transparent); }
 .mood__frame { position: relative; aspect-ratio: var(--ar, 3/4); }
 .mood__body { padding: 12px 13px 14px; }
-.mood__name { font-size: 15px; font-weight: 700; letter-spacing: -.01em; }
-.mood__creator { font-family: var(--mono); font-size: 11.5px; color: var(--theme-accent); margin-top: 3px; }
-.mood__snippet { font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; margin: 8px 0 0;
-  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.mood__caption { font-size: 13.5px; font-weight: 600; line-height: 1.45; margin: 0 0 6px; letter-spacing: -.01em;
+  color: color-mix(in srgb, var(--a) 40%, var(--ink)); }
+.mood__name { font-size: 13px; font-weight: 700; letter-spacing: -.01em; color: var(--ink); }
+.mood__meta { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 4px; font-family: var(--mono); font-size: 11px; }
+.mood__creator { color: var(--theme-accent); }
+.mood__space { color: var(--ink-faint); }
+.mood__price { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); margin-top: 6px; font-variant-numeric: tabular-nums; }
 .mood__tags { display: flex; gap: 5px; margin-top: 9px; flex-wrap: wrap; }
+.tier-badge { position: absolute; left: 12px; bottom: 12px; z-index: 2; font-family: var(--mono); font-size: 10px; font-weight: 700;
+  padding: 4px 9px; border-radius: 99px; letter-spacing: .04em; backdrop-filter: blur(6px); }
+.tier-badge.anchor { color: #ffe6a3; background: rgba(120,90,20,.5); border: 1px solid rgba(255,210,120,.35); }
+.tier-badge.budget { color: #bfe6cf; background: rgba(20,70,45,.5); border: 1px solid rgba(120,220,160,.3); }
 .tag { font-family: var(--mono); font-size: 10.5px; color: var(--ink-soft);
   border: 1px solid var(--line); background: var(--surface-2); padding: 3px 8px; border-radius: 99px; }
 .tag.on { color: var(--theme-accent); border-color: color-mix(in srgb, var(--theme-accent) 40%, var(--line)); background: color-mix(in srgb, var(--theme-accent) 8%, transparent); }
@@ -171,8 +207,11 @@ button { font-family: inherit; cursor: pointer; color: inherit; }
 .detail { padding-top: 6px; padding-bottom: 40px; }
 .detail__hero { position: relative; aspect-ratio: 16/11; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); margin-bottom: 18px; }
 .detail__scrim { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(6,8,11,.7), transparent 42%); }
-.listen-big { position: absolute; left: 14px; bottom: 13px; font-family: var(--mono); font-size: 12px; color: #fff;
+.listen-big { position: absolute; right: 14px; bottom: 13px; font-family: var(--mono); font-size: 12px; color: #fff;
   background: rgba(0,0,0,.42); border: 1px solid rgba(255,255,255,.16); padding: 8px 14px; border-radius: 99px; backdrop-filter: blur(6px); }
+.detail__caption { position: absolute; left: 16px; bottom: 15px; right: 130px; margin: 0; z-index: 2;
+  font-size: 16px; font-weight: 700; letter-spacing: -.01em; color: #fff; text-shadow: 0 2px 12px rgba(0,0,0,.7); }
+.detail__total { font-family: var(--mono); font-size: 13px; color: var(--theme-accent); font-weight: 700; margin-left: 6px; }
 .detail__title { font-size: clamp(24px, 6vw, 30px); font-weight: 800; letter-spacing: -.02em; margin: 0; }
 .detail__by { font-family: var(--mono); font-size: 13px; color: var(--theme-accent); margin-top: 6px; }
 .detail__story { font-size: 16px; line-height: 1.8; color: var(--ink); margin: 18px 0 0; max-width: 62ch; opacity: .92; }

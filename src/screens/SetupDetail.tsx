@@ -1,10 +1,10 @@
 import { SETUPS, MOODS, SOUND_MOOD } from '../data'
 import { KeebScene } from '../components/KeebScene'
+import { sceneCtx } from './Feed'
 import { thock } from '../sound'
 import { useStore, toggleLikeSetup, applySetup } from '../store'
-import { byId, won } from '../engine'
+import { byId, won, totalOf } from '../engine'
 import { navigate } from '../router'
-import type { Setup } from '../types'
 
 // 셋업 포스트 — 블로그형 상세 (이야기 + 재료를 감성으로)
 export function SetupDetail({ id }: { id: string }) {
@@ -33,21 +33,22 @@ export function SetupDetail({ id }: { id: string }) {
       <div className="topbar"><button className="reset" onClick={() => navigate('/feed')}>← 둘러보기</button></div>
 
       <div className="detail__hero">
-        <KeebScene accent={accent} seed={s.id.charCodeAt(2)} />
+        <KeebScene accent={accent} seed={s.id.charCodeAt(2)} {...sceneCtx(s)} />
         <div className="detail__scrim" />
+        <p className="detail__caption">{s.caption}</p>
         <button className="listen-big" onClick={() => thock(s.picks.switch ? byId(s.picks.switch)?.sound : 'thocky')}>🔊 타건음 듣기</button>
       </div>
 
       <div className="detail__head">
         <h1 className="detail__title">{s.title}</h1>
-        <div className="detail__by">{s.creator} · {mood?.emoji} {mood?.name}</div>
+        <div className="detail__by">{s.creator} · {mood?.emoji} {mood?.name} · {s.space}</div>
       </div>
 
       <p className="detail__story">{s.story}</p>
 
       <div className="detail__tags">{s.tags.map((t) => <span key={t} className="tag on">{t}</span>)}</div>
 
-      <h2 className="detail__h2">이 책상의 재료</h2>
+      <h2 className="detail__h2">이 책상의 재료 <span className="detail__total">총 {won(totalOf(s.picks))}</span></h2>
       <div className="parts">
         {(['keycap', 'switch', 'case'] as const).map((slot) => {
           const f = feel(slot); if (!f) return null
@@ -75,7 +76,7 @@ export function SetupDetail({ id }: { id: string }) {
             const rk = r.picks.keycap ? byId(r.picks.keycap) : null
             return (
               <button key={r.id} className="rel" style={{ ['--a' as string]: rk?.accent ?? '#2453DE' }} onClick={() => navigate('/setup/' + r.id)}>
-                <div className="rel__img"><KeebScene accent={rk?.accent ?? '#2453DE'} seed={r.id.charCodeAt(2)} /></div>
+                <div className="rel__img"><KeebScene accent={rk?.accent ?? '#2453DE'} seed={r.id.charCodeAt(2)} {...sceneCtx(r)} /></div>
                 <div className="rel__t">{r.title}</div>
               </button>
             )

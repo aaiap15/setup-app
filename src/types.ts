@@ -50,11 +50,15 @@ export type Picks = Partial<Record<SlotKey, string>>
 export interface RecFilters { sound: string; use: string; budget: number }
 
 // 큐레이션 셋업 포스트 (v5 §2.1 · 블로그형 데스크셋업 공유)
+export type Tier = 'anchor' | 'main' | 'budget' // 앵커(드림) / 주력 / 변주(저예산)
 export interface Setup {
   id: string
   title: string
+  caption: string    // "오늘의 무드" 한 줄 서사 ("새벽 2시, 마지막 커밋의 책상")
   creator: string
   moodId: string
+  tier: Tier
+  space: string      // 삶의 맥락 (원룸 구석 / 게이밍 데스크 / 작업실 …)
   story: string      // 감성 이야기 (스펙 아님)
   tags: string[]
   picks: Picks
