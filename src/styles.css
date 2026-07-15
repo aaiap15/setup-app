@@ -233,9 +233,70 @@ button { font-family: inherit; cursor: pointer; color: inherit; }
 .rel__t { padding: 10px 12px 12px; font-size: 13.5px; font-weight: 600; }
 
 /* ============================================================
+   꾸미기 — 1인칭 데스크 POV (내 의자에서 본 내 책상)
+   ============================================================ */
+.pov { position: absolute; inset: 0; overflow: hidden;
+  background: linear-gradient(#0a0c11 0%, #0c0f15 44%, #0e1118 46%, #090a0e 100%); }
+/* 뒷벽 + 방 어스름 */
+.pov__wall { position: absolute; left: 0; right: 0; top: 0; height: 46%;
+  background: radial-gradient(80% 120% at 50% 120%, color-mix(in srgb, var(--a) 20%, transparent), transparent 70%); }
+/* 모니터 (정면으로 서 있음) */
+.pov__monitor { position: absolute; left: 50%; top: 6%; transform: translateX(-50%); width: 54%; height: 30%;
+  border-radius: 9px; background: linear-gradient(#15181f, #0c0e13); border: 1px solid rgba(255,255,255,.06);
+  box-shadow: 0 10px 40px rgba(0,0,0,.6); overflow: hidden; z-index: 2; }
+.pov__screen { position: absolute; inset: 6%; border-radius: 4px;
+  background: linear-gradient(155deg, color-mix(in srgb, var(--a) 60%, #7a97d8), color-mix(in srgb, var(--a) 45%, #26314c));
+  box-shadow: 0 0 30px color-mix(in srgb, var(--a) 45%, #5a7ac0); opacity: .9; transition: opacity .35s; }
+.pov.playing .pov__screen { opacity: 1; }
+.pov__stand { position: absolute; left: 50%; top: 35%; transform: translateX(-50%); width: 9%; height: 8%;
+  background: linear-gradient(#14171d, #0d0f14); border-radius: 0 0 4px 4px; z-index: 2; }
+.pov__beam { position: absolute; left: 50%; top: 30%; transform: translateX(-50%); width: 90%; height: 60%;
+  background: radial-gradient(58% 70% at 50% 0%, color-mix(in srgb, var(--a) 26%, rgba(120,150,210,.2)), transparent 68%); filter: blur(8px); }
+/* 책상 상판 (하단 절반, 원근) */
+.pov__desk { position: absolute; left: 0; right: 0; bottom: 0; height: 56%;
+  background: linear-gradient(#0f1219 0%, #0b0d12 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.04); }
+/* 데스크매트 (사다리꼴 원근) */
+.pov__mat { position: absolute; left: 50%; bottom: 3%; transform: translateX(-50%); width: 82%; height: 42%;
+  clip-path: polygon(16% 0, 84% 0, 100% 100%, 0 100%);
+  background: linear-gradient(#000 0%, color-mix(in srgb, var(--mat) 60%, #0c0e12) 60%, color-mix(in srgb, var(--mat) 80%, #14161c) 100%);
+  box-shadow: 0 -2px 20px rgba(0,0,0,.4); }
+/* 마우스 (오른쪽, 매트 위) */
+.pov__mouse { position: absolute; right: 12%; bottom: 12%; width: 12%; aspect-ratio: 1/1.42;
+  border-radius: 48% 48% 44% 44% / 40% 40% 60% 60%; z-index: 3;
+  background: radial-gradient(70% 60% at 40% 25%, color-mix(in srgb, var(--a) 30%, #2a2e37), #16181e 75%);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,.08), 0 6px 14px rgba(0,0,0,.55); transform: rotate(-6deg); }
+.pov__mwheel { position: absolute; left: 50%; top: 12%; transform: translateX(-50%); width: 8%; height: 16%;
+  border-radius: 99px; background: color-mix(in srgb, var(--a) 60%, #444); box-shadow: 0 0 6px color-mix(in srgb, var(--a) 50%, transparent); }
+/* 커피잔 (왼쪽) */
+.pov__mug { position: absolute; left: 9%; bottom: 16%; width: 11%; aspect-ratio: 1; z-index: 3; }
+.pov__mug::before { content: ''; position: absolute; bottom: 0; left: 8%; width: 66%; height: 60%; border-radius: 12% 12% 26% 26%;
+  background: linear-gradient(#2b2c31, #131418); box-shadow: inset 0 2px 3px rgba(255,255,255,.06), 0 3px 9px rgba(0,0,0,.5); }
+.pov__mug::after { content: ''; position: absolute; right: 8%; top: 42%; width: 26%; height: 40%; border: 3px solid #24252b; border-left: 0; border-radius: 0 60% 60% 0; }
+.pov__steam { position: absolute; bottom: 58%; width: 3px; height: 38%; border-radius: 3px; left: 34%;
+  background: linear-gradient(to top, transparent, rgba(255,255,255,.2), transparent); filter: blur(2px); }
+.pov__steam.a { animation: steam 3.4s ease-in-out infinite; }
+.pov__steam.b { left: 50%; height: 30%; animation: steam 4s ease-in-out .9s infinite; }
+/* 키보드 (내 손 앞, 매트 위, 강한 원근) */
+.pov__kbwrap { position: absolute; left: 50%; bottom: -3%; transform: translateX(-50%); width: 74%; perspective: 520px; z-index: 4; }
+.pov__board { transform-origin: center bottom; transform: rotateX(64deg); transform-style: preserve-3d;
+  width: 100%; aspect-ratio: 14 / 5.4; display: flex; flex-direction: column; gap: 3%; padding: 2.5%;
+  background: linear-gradient(color-mix(in srgb, var(--a) 12%, #1a1d24), color-mix(in srgb, var(--a) 8%, #0e1015));
+  border-radius: 3%; box-shadow: 0 -20px 40px rgba(0,0,0,.5); }
+.prow { flex: 1; display: flex; gap: 1.8%; }
+.pkey { flex-basis: 0; height: 100%; border-radius: 14% / 20%;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--a) 42%, #3a414c), color-mix(in srgb, var(--a) 34%, #262c35));
+  box-shadow: inset 0 .6px 0 rgba(255,255,255,.18), 0 1.5px 0 rgba(0,0,0,.55); }
+.pkey.accent { background: linear-gradient(180deg, color-mix(in srgb, var(--a) 96%, #fff 12%), color-mix(in srgb, var(--a) 82%, #000 4%));
+  box-shadow: inset 0 .6px 0 rgba(255,255,255,.5), 0 1.5px 0 rgba(0,0,0,.5), 0 0 14px color-mix(in srgb, var(--a) 75%, transparent); }
+.pov__empty { position: absolute; left: 50%; bottom: 30%; transform: translateX(-50%); text-align: center;
+  font-size: 13px; color: var(--ink-faint); line-height: 1.6; white-space: nowrap; }
+.pov__vig { position: absolute; inset: 0; pointer-events: none;
+  box-shadow: inset 0 0 60px 12px rgba(0,0,0,.55), inset 0 -20px 50px -18px rgba(0,0,0,.6); }
+
+/* ============================================================
    꾸미기 — 라이브 프리뷰 + 셔플
    ============================================================ */
-.bhero { position: relative; aspect-ratio: 16/10; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); margin-bottom: 14px; }
+.bhero { position: relative; aspect-ratio: 4/3; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); margin-bottom: 14px; }
 .bhero__scrim { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(6,8,11,.55), transparent 45%); }
 .bhero__status { position: absolute; left: 14px; bottom: 13px; display: flex; gap: 8px; font-family: var(--mono);
   font-size: 12px; color: rgba(255,255,255,.9); text-shadow: 0 1px 6px rgba(0,0,0,.6); }

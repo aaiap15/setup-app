@@ -1,18 +1,25 @@
-import { useState } from 'react'
-import { SLOTS, SOUND_MOOD } from '../data'
-import { KeebScene } from '../components/KeebScene'
+import { useState, useEffect } from 'react'
+import { SLOTS, SOUND_MOOD, SETUPS } from '../data'
+import { DeskPOV } from '../components/DeskPOV'
 import { thock } from '../sound'
-import { useStore, pick, recommendInto, tasteVec } from '../store'
+import { useStore, pick, recommendInto, tasteVec, applySetup } from '../store'
 import {
   byId, byCat, won, issues, compatScore, isCompatible, itemFlag, totalOf, accentOf,
 } from '../engine'
-import { navigate } from '../router'
+import { navigate, useHash } from '../router'
 import type { SlotKey } from '../types'
 
 // 내 것 꾸미기 — 단순·재밌게. 소리·색은 감성으로 (v5 §4.4)
 export function Builder() {
   const { picks, banner, recPicks } = useStore()
   const [active, setActive] = useState<SlotKey>('case')
+  const hash = useHash()
+
+  // 딥링크: /build/<setupId> → 그 셋업을 내 책상에 불러오기
+  useEffect(() => {
+    const m = hash.match(/^\/build\/(.+)$/)
+    if (m) { const s = SETUPS.find((x) => x.id === m[1]); if (s) { applySetup(s); navigate('/build') } }
+  }, [hash])
 
   const iss = issues(picks)
   const warns = iss.filter((i) => i.sev !== 'ok')
@@ -50,9 +57,9 @@ export function Builder() {
 
       {banner && <div className="banner"><span>✨</span><span>{banner}</span></div>}
 
-      {/* 라이브 프리뷰 — 고르면 색이 바뀜 */}
+      {/* 라이브 프리뷰 — 내 의자에서 본 내 책상 (1인칭 POV) */}
       <div className="bhero">
-        <KeebScene accent={accent} seed={7} />
+        <DeskPOV picks={picks} />
         <div className="bhero__scrim" />
         <div className="bhero__status">
           <span>호환 {Object.keys(picks).length ? cs : '–'}</span>
