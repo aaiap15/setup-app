@@ -14,6 +14,11 @@ export function averageAxes(list: Axes[]): Axes | null {
   return { mm: a.mm / list.length, wc: a.wc / list.length, ql: a.ql / list.length }
 }
 
+// 셋업/빌드의 미학 벡터 = 담긴 부품 축 평균
+export function picksAxes(picks: Picks): Axes | null {
+  return averageAxes(Object.values(picks).map((id) => byId(id!)?.ax).filter(Boolean) as Axes[])
+}
+
 export function archetypeOf(a: Axes) {
   let best = ARCHES[0], bd = 9
   for (const A of ARCHES) { const d = dist(a, A.t); if (d < bd) { bd = d; best = A } }

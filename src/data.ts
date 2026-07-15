@@ -61,3 +61,61 @@ export const SLOTS: { key: SlotKey; label: string; req: boolean }[] = [
 ]
 
 export const REL_KO: Record<string, string> = { in_stock: '재고', group_buy: '공구', pre_order: '예약', discontinued: '단종' }
+
+// 스위치 사운드 → 감성 언어 (v5 §4.4 스펙 아니라 감성)
+export const SOUND_MOOD: Record<string, string> = {
+  thocky: '조용한 톡톡', marble: '묵직한 마블', clacky: '경쾌한 클릭',
+}
+
+// 취향 필터 (감성 태그)
+export const VIBES = ['전체', '다크', '웜', '쿨', '미니멀', '레트로', 'RGB', '우드', '파스텔', '모노']
+
+// 큐레이션 셋업 포스트 — 블로그형 데스크셋업 공유 (감성 이야기 포함)
+import type { Setup } from './types'
+export const SETUPS: Setup[] = [
+  { id: 's01', title: '미드나잇 네이비', creator: '@nightkeys', moodId: 'm1', tags: ['다크', '미니멀'],
+    story: '야근이 길어지는 밤, 방 불을 끄고 모니터 불빛만 남겨요. 무광 네이비 위로 조용한 타건이 번지면 그날의 소음이 천천히 가라앉습니다.',
+    picks: { case: 'c1', pcb: 'p1', switch: 's1', keycap: 'k4' } },
+  { id: 's02', title: '블랙아웃 60', creator: '@silentboard', moodId: 'm1', tags: ['다크', '모노', '미니멀'],
+    story: '책상 위엔 딱 필요한 것만. 60키의 작은 흑판 하나가 남으면, 오히려 생각이 더 선명해져요.',
+    picks: { case: 'c2', pcb: 'p2', switch: 's2', keycap: 'k4' } },
+  { id: 's03', title: '무채색 워크데스크', creator: '@greyscale', moodId: 'm5', tags: ['모노', '미니멀'],
+    story: '색을 다 빼고 나니 남은 건 질감이었어요. 블랙과 화이트 사이, 그 회색의 온도가 하루를 차분하게 잡아줍니다.',
+    picks: { case: 'c4', pcb: 'p3', switch: 's3', keycap: 'k4' } },
+  { id: 's05', title: '레트로 타이프라이터', creator: '@typewriter', moodId: 'm2', tags: ['웜', '레트로'],
+    story: '80년대 사무실을 좋아해요. 베이지 키캡에 묵직한 소리가 얹히면, 이메일 한 통에도 괜히 격식이 생깁니다.',
+    picks: { case: 'c3', pcb: 'p1', switch: 's2', keycap: 'k3' } },
+  { id: 's06', title: '베이지 드림', creator: '@cream_keeb', moodId: 'm2', tags: ['웜', '레트로'],
+    story: '따뜻한 우유색으로만 채운 책상. 봄날 오후의 나른함을 그대로 옮겨두고 싶었어요.',
+    picks: { case: 'c1', pcb: 'p1', switch: 's5', keycap: 'k3' } },
+  { id: 's07', title: '월넛 & 황동', creator: '@woodgrain', moodId: 'm4', tags: ['웜', '우드'],
+    story: '아침 햇살이 월넛 상판에 닿는 순간이 하루 중 제일 좋아요. 나무의 결과 황동의 반짝임, 그거면 충분합니다.',
+    picks: { case: 'c3', pcb: 'p1', switch: 's1', keycap: 'k3' } },
+  { id: 's08', title: '보태니컬 가든', creator: '@botanist', moodId: 'm4', tags: ['웜', '우드'],
+    story: '작은 화분 옆에 세이지빛 키보드를 뒀어요. 초록과 나무 사이에서 타이핑하면 방이 조금 더 살아있는 느낌이에요.',
+    picks: { case: 'c3', pcb: 'p1', switch: 's2', keycap: 'k2' } },
+  { id: 's09', title: '퍼플 RGB 리그', creator: '@rgblord', moodId: 'm3', tags: ['RGB', '화려'],
+    story: '게임에 들어가는 순간, 방이 보라색으로 물들어요. 언더글로우가 켜지면 그때부터가 진짜 내 시간입니다.',
+    picks: { case: 'c5', pcb: 'p4', switch: 's4', keycap: 'k6' } },
+  { id: 's10', title: '블루 게이밍', creator: '@bluehour', moodId: 'm7', tags: ['쿨', 'RGB'],
+    story: '차가운 블루로 통일한 리그. 승패보다도, 이 셋업 앞에 앉는 순간의 몰입이 좋아서 계속 켜둡니다.',
+    picks: { case: 'c1', pcb: 'p1', switch: 's4', keycap: 'k5' } },
+  { id: 's11', title: '파스텔 컬렉터', creator: '@pastel', moodId: 'm6', tags: ['파스텔'],
+    story: '키캡을 모으는 건 취미가 아니라 애정이에요. 파스텔 한 세트를 얹는 날은, 그냥 기분이 좋아집니다.',
+    picks: { case: 'c1', pcb: 'p1', switch: 's5', keycap: 'k5' } },
+  { id: 's12', title: '민트 초코', creator: '@mintchoco', moodId: 'm6', tags: ['파스텔', '웜'],
+    story: '민트와 초코, 호불호 갈리는 그 조합을 책상에 옮겼어요. 세이지 키캡에 조용한 타건이 은근히 잘 어울려요.',
+    picks: { case: 'c1', pcb: 'p1', switch: 's1', keycap: 'k2' } },
+  { id: 's13', title: '코발트 미니멀', creator: '@cobalt', moodId: 'm7', tags: ['쿨', '미니멀'],
+    story: '딱 하나의 포인트만 두기로 했어요. 네이비 케이스에 조용한 톡톡, 그 절제가 오히려 오래 물리지 않아요.',
+    picks: { case: 'c1', pcb: 'p1', switch: 's1', keycap: 'k4' } },
+  { id: 's15', title: '선셋 올리비아', creator: '@sunset', moodId: 'm8', tags: ['웜', '코랄'],
+    story: '해질 무렵의 코랄빛을 좋아해요. 올리비아 키캡을 얹으면 저녁의 그 따뜻한 15분이 책상에 머무릅니다.',
+    picks: { case: 'c1', pcb: 'p1', switch: 's5', keycap: 'k1' } },
+  { id: 's17', title: '올리비아 클래식', creator: '@olivia', moodId: 'm2', tags: ['웜', '클래식'],
+    story: '유행을 안 타는 조합이 결국 오래가더라고요. 핑크와 블랙의 그 클래식, 몇 년째 제 최애입니다.',
+    picks: { case: 'c1', pcb: 'p1', switch: 's1', keycap: 'k1' } },
+  { id: 's18', title: '화이트 게이밍', creator: '@snow', moodId: 'm5', tags: ['모노', 'RGB'],
+    story: '올화이트 셋업에 은은한 화이트 라이트. 요란하지 않아도 충분히 몰입되는, 조용한 게이밍을 좋아해요.',
+    picks: { case: 'c4', pcb: 'p3', switch: 's4', keycap: 'k4' } },
+]

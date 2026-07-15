@@ -48,3 +48,14 @@ export interface Archetype {
 export type SlotKey = Category
 export type Picks = Partial<Record<SlotKey, string>>
 export interface RecFilters { sound: string; use: string; budget: number }
+
+// 큐레이션 셋업 포스트 (v5 §2.1 · 블로그형 데스크셋업 공유)
+export interface Setup {
+  id: string
+  title: string
+  creator: string
+  moodId: string
+  story: string      // 감성 이야기 (스펙 아님)
+  tags: string[]
+  picks: Picks
+}

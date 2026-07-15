@@ -131,32 +131,80 @@ button { font-family: inherit; cursor: pointer; color: inherit; }
   box-shadow: inset 0 0 50px 8px rgba(0,0,0,.5), inset 0 -30px 60px -20px rgba(0,0,0,.6); }
 
 /* ============================================================
-   무드 피드 — 소리 나는 핀터레스트 (핀 스타일)
+   둘러보기 — 블로그형 데스크셋업 카드 (마소너리)
    ============================================================ */
-.feed { columns: 2; column-gap: 12px; margin-top: 18px; }
+.vibes { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 16px 0 4px; margin: 0 -2px; }
+.vibes::-webkit-scrollbar { display: none; }
+.vchip { flex: 0 0 auto; font-family: var(--mono); font-size: 13px; color: var(--ink-soft);
+  border: 1px solid var(--line); background: var(--surface); padding: 7px 14px; border-radius: 99px; transition: .15s; }
+.vchip.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+.feed { columns: 2; column-gap: 12px; margin-top: 8px; }
 @media (min-width: 640px) { .feed { columns: 3; } }
-.mood { break-inside: avoid; margin-bottom: 12px; position: relative; border-radius: 16px; overflow: hidden;
-  border: 1px solid var(--line); box-shadow: var(--shadow); cursor: pointer;
+.mood { break-inside: avoid; margin-bottom: 14px; border-radius: 16px; overflow: hidden;
+  border: 1px solid var(--line); background: var(--surface); box-shadow: var(--shadow); cursor: pointer;
   transition: transform .18s cubic-bezier(.22,1,.36,1), box-shadow .18s; }
 .mood:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.5), 0 0 0 1px color-mix(in srgb, var(--a) 35%, transparent); }
 .mood__frame { position: relative; aspect-ratio: var(--ar, 3/4); }
-.mood__scrim { position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(to top, rgba(6,8,11,.86) 0%, rgba(6,8,11,.35) 34%, transparent 60%); }
-.mood__cap { position: absolute; left: 13px; right: 13px; bottom: 12px; }
-.mood__name { font-size: 15px; font-weight: 700; letter-spacing: -.01em; text-shadow: 0 1px 8px rgba(0,0,0,.5); }
-.mood__tags { display: flex; gap: 5px; margin-top: 7px; flex-wrap: wrap; }
-.tag { font-family: var(--mono); font-size: 10.5px; color: rgba(255,255,255,.82);
-  border: 1px solid rgba(255,255,255,.18); background: rgba(0,0,0,.25); padding: 3px 8px; border-radius: 99px; backdrop-filter: blur(4px); }
-.tag.on { color: var(--theme-accent); border-color: color-mix(in srgb, var(--theme-accent) 40%, var(--line)); }
+.mood__body { padding: 12px 13px 14px; }
+.mood__name { font-size: 15px; font-weight: 700; letter-spacing: -.01em; }
+.mood__creator { font-family: var(--mono); font-size: 11.5px; color: var(--theme-accent); margin-top: 3px; }
+.mood__snippet { font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; margin: 8px 0 0;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.mood__tags { display: flex; gap: 5px; margin-top: 9px; flex-wrap: wrap; }
+.tag { font-family: var(--mono); font-size: 10.5px; color: var(--ink-soft);
+  border: 1px solid var(--line); background: var(--surface-2); padding: 3px 8px; border-radius: 99px; }
+.tag.on { color: var(--theme-accent); border-color: color-mix(in srgb, var(--theme-accent) 40%, var(--line)); background: color-mix(in srgb, var(--theme-accent) 8%, transparent); }
 .mood__sound { position: absolute; left: 12px; top: 12px; font-family: var(--mono); font-size: 10px;
   color: #fff; background: rgba(0,0,0,.5); padding: 4px 9px; border-radius: 99px; opacity: 0; transform: translateY(-4px);
-  transition: opacity .2s, transform .2s; backdrop-filter: blur(4px); }
+  transition: opacity .2s, transform .2s; backdrop-filter: blur(4px); z-index: 2; }
 .mood.playing .mood__sound { opacity: 1; transform: none; }
 .mood__like { position: absolute; top: 9px; right: 9px; width: 36px; height: 36px; border-radius: 50%; z-index: 2;
   border: 0; background: rgba(0,0,0,.42); color: #fff; font-size: 17px; display: grid; place-items: center; backdrop-filter: blur(6px);
   transition: transform .12s, background .15s; }
 .mood__like:active { transform: scale(.85); }
 .mood__like.on { background: var(--crit); box-shadow: 0 0 14px color-mix(in srgb, var(--crit) 55%, transparent); }
+
+/* ============================================================
+   셋업 포스트 — 블로그형 상세
+   ============================================================ */
+.detail { padding-top: 6px; padding-bottom: 40px; }
+.detail__hero { position: relative; aspect-ratio: 16/11; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); margin-bottom: 18px; }
+.detail__scrim { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(6,8,11,.7), transparent 42%); }
+.listen-big { position: absolute; left: 14px; bottom: 13px; font-family: var(--mono); font-size: 12px; color: #fff;
+  background: rgba(0,0,0,.42); border: 1px solid rgba(255,255,255,.16); padding: 8px 14px; border-radius: 99px; backdrop-filter: blur(6px); }
+.detail__title { font-size: clamp(24px, 6vw, 30px); font-weight: 800; letter-spacing: -.02em; margin: 0; }
+.detail__by { font-family: var(--mono); font-size: 13px; color: var(--theme-accent); margin-top: 6px; }
+.detail__story { font-size: 16px; line-height: 1.8; color: var(--ink); margin: 18px 0 0; max-width: 62ch; opacity: .92; }
+.detail__tags { display: flex; gap: 6px; flex-wrap: wrap; margin: 16px 0 0; }
+.detail__h2 { font-size: 17px; margin: 28px 0 12px; letter-spacing: -.01em; }
+.parts { display: flex; flex-direction: column; gap: 8px; }
+.part-line { display: grid; grid-template-columns: 54px 1fr auto; align-items: center; gap: 12px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 13px 15px; }
+.part-k { font-family: var(--mono); font-size: 11px; color: var(--ink-soft); }
+.part-name { font-size: 14.5px; font-weight: 600; }
+.part-mood { font-size: 12.5px; color: var(--theme-accent); margin-top: 2px; }
+.part-price { font-family: var(--mono); font-size: 12.5px; color: var(--ink-soft); }
+.detail__actions { display: flex; gap: 10px; margin-top: 22px; }
+.like-btn { flex: 0 0 40%; }
+.like-btn.on { color: var(--crit); border-color: color-mix(in srgb, var(--crit) 40%, var(--line)); }
+.related { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.rel { border: 1px solid var(--line); background: var(--surface); border-radius: 14px; overflow: hidden; padding: 0; text-align: left; box-shadow: var(--shadow); }
+.rel__img { position: relative; aspect-ratio: 16/11; }
+.rel__t { padding: 10px 12px 12px; font-size: 13.5px; font-weight: 600; }
+
+/* ============================================================
+   꾸미기 — 라이브 프리뷰 + 셔플
+   ============================================================ */
+.bhero { position: relative; aspect-ratio: 16/10; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); margin-bottom: 14px; }
+.bhero__scrim { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(6,8,11,.55), transparent 45%); }
+.bhero__status { position: absolute; left: 14px; bottom: 13px; display: flex; gap: 8px; font-family: var(--mono);
+  font-size: 12px; color: rgba(255,255,255,.9); text-shadow: 0 1px 6px rgba(0,0,0,.6); }
+.dice { position: absolute; top: 12px; right: 12px; width: 44px; height: 44px; border-radius: 14px; font-size: 20px;
+  border: 1px solid rgba(255,255,255,.18); background: rgba(0,0,0,.4); backdrop-filter: blur(6px); transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+.dice:active { transform: rotate(180deg) scale(.9); }
+.picker-title { font-size: 17px; margin: 18px 0 12px; }
+.item .feel { font-size: 12px; color: var(--theme-accent); font-family: var(--mono); }
 
 /* floating CTA (움직임 하나로 착지) */
 .float-cta { position: fixed; left: 50%; bottom: 76px; transform: translateX(-50%) translateY(120%);
