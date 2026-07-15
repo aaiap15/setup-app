@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { MOODS } from '../data'
 import type { Mood } from '../types'
-import { Keys } from '../components/Keys'
+import { KeebScene } from '../components/KeebScene'
 import { TasteGauge } from '../components/TasteGauge'
 import { thock } from '../sound'
 import { useStore, toggleLikeMood, tasteVec, likeCount, recommendInto } from '../store'
@@ -41,24 +41,26 @@ export function Feed() {
       <div className="feed">
         {moods.map((m, idx) => {
           const liked = likedMoods.includes(m.id)
+          const ar = ['3/4', '1/1', '4/5', '5/7', '3/4', '1/1'][idx % 6]
           return (
-            <article key={m.id} className={'mood' + (playing === m.id ? ' playing' : '')}>
-              <div
-                className="mood__img"
-                style={{ ['--a' as string]: m.accent, ['--ar' as string]: idx % 3 === 1 ? '1/1' : '3/4' }}
-                onPointerDown={() => play(m)}
-              >
-                <Keys n={24} seed={m.id.charCodeAt(1)} />
-                <span className="mood__sound">🔊 {m.name}</span>
+            <article
+              key={m.id}
+              className={'mood' + (playing === m.id ? ' playing' : '')}
+              style={{ ['--a' as string]: m.accent }}
+            >
+              <div className="mood__frame" style={{ ['--ar' as string]: ar }} onPointerDown={() => play(m)}>
+                <KeebScene accent={m.accent} seed={m.id.charCodeAt(1)} playing={playing === m.id} />
+                <div className="mood__scrim" />
+                <span className="mood__sound">🔊 타건음</span>
                 <button
                   className={'mood__like' + (liked ? ' on' : '')}
                   onClick={(e) => { e.stopPropagation(); toggleLikeMood(m.id) }}
                   aria-label="좋아요"
                 >{liked ? '♥' : '♡'}</button>
-              </div>
-              <div className="mood__meta">
-                <div className="mood__name">{m.emoji} {m.name}</div>
-                <div className="mood__tags">{m.tags.map((t) => <span key={t} className="tag">{t}</span>)}</div>
+                <div className="mood__cap">
+                  <div className="mood__name">{m.emoji} {m.name}</div>
+                  <div className="mood__tags">{m.tags.map((t) => <span key={t} className="tag">{t}</span>)}</div>
+                </div>
               </div>
             </article>
           )

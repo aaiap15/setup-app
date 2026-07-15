@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Keys } from '../components/Keys'
+import { KeebScene } from '../components/KeebScene'
 import { useStore } from '../store'
 import { byId, won, totalOf, accentOf, compatScore, archetypeOf, averageAxes } from '../engine'
 import { navigate } from '../router'
@@ -36,7 +36,7 @@ export function Result() {
       </div>
 
       <div className={'card' + (light ? ' light' : '')}>
-        <div className="card__img" style={{ ['--a' as string]: accent }}><Keys n={30} seed={7} cols={10} /></div>
+        <div className="card__img"><KeebScene accent={accent} seed={7} /></div>
         <div className="card__body">
           <div className="card__row">
             <h2 className="card__title">{title}</h2>

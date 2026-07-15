@@ -100,32 +100,63 @@ button { font-family: inherit; cursor: pointer; color: inherit; }
 .gauge__hint { font-size: 13px; color: var(--ink-soft); margin: 12px 0 0; }
 
 /* ============================================================
-   무드 피드 — 소리 나는 핀터레스트
+   절차적 셋업 씬 — 분위기 있는 제품샷 (KeebScene)
+   ============================================================ */
+.scene { position: absolute; inset: 0; overflow: hidden;
+  background: linear-gradient(165deg, color-mix(in srgb, var(--a) 14%, #0b0d11) 0%, #0a0c10 72%); }
+.scene__glow { position: absolute; inset: -12%;
+  background:
+    radial-gradient(56% 44% at var(--gx, 40%) 18%, color-mix(in srgb, var(--a) 72%, transparent), transparent 66%),
+    radial-gradient(90% 70% at 50% 108%, color-mix(in srgb, var(--a) 40%, transparent), transparent 60%);
+  opacity: .95; transition: opacity .35s; }
+.scene.playing .scene__glow { opacity: 1.2; }
+.scene__deck { position: absolute; left: 50%; bottom: -2%; width: 172%; transform: translateX(-50%); perspective: 760px; }
+.scene__board { transform-origin: center bottom; transform-style: preserve-3d;
+  width: 100%; aspect-ratio: 14 / 5.6; display: flex; flex-direction: column; gap: 3.2%; padding: 3%; }
+.krow { flex: 1; display: flex; gap: 2%; }
+.key { flex-basis: 0; height: 100%; border-radius: 15% / 22%;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--a) 40%, #363d47), color-mix(in srgb, var(--a) 32%, #232932));
+  box-shadow: inset 0 0.6px 0 rgba(255,255,255,.16), 0 1.5px 0 rgba(0,0,0,.55); }
+.key.accent { background: linear-gradient(180deg, color-mix(in srgb, var(--a) 96%, #fff 12%), color-mix(in srgb, var(--a) 82%, #000 4%));
+  box-shadow: inset 0 0.6px 0 rgba(255,255,255,.5), 0 1.5px 0 rgba(0,0,0,.5), 0 0 14px color-mix(in srgb, var(--a) 75%, transparent); }
+.scene.playing .key.accent { animation: keypulse .45s ease; }
+@keyframes keypulse { 0%,100% { filter: none; } 45% { filter: brightness(1.4); } }
+.scene__under { position: absolute; left: 6%; right: 6%; top: 40%; height: 62%; border-radius: 50%;
+  background: radial-gradient(60% 100% at 50% 0%, color-mix(in srgb, var(--a) 55%, transparent), transparent 72%);
+  filter: blur(16px); opacity: .75; }
+.scene__grain { position: absolute; inset: 0; opacity: .28; mix-blend-mode: soft-light; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 140px; }
+.scene__vig { position: absolute; inset: 0; pointer-events: none;
+  box-shadow: inset 0 0 50px 8px rgba(0,0,0,.5), inset 0 -30px 60px -20px rgba(0,0,0,.6); }
+
+/* ============================================================
+   무드 피드 — 소리 나는 핀터레스트 (핀 스타일)
    ============================================================ */
 .feed { columns: 2; column-gap: 12px; margin-top: 18px; }
-@media (min-width: 620px) { .feed { columns: 3; } }
-.mood { break-inside: avoid; margin-bottom: 12px; position: relative; border-radius: 14px; overflow: hidden;
-  border: 1px solid var(--line); background: var(--surface); box-shadow: var(--shadow); }
-.mood__img { position: relative; aspect-ratio: var(--ar, 3/4);
-  background:
-    radial-gradient(120% 130% at 22% 12%, color-mix(in srgb, var(--a) 55%, transparent), transparent 58%),
-    linear-gradient(150deg, color-mix(in srgb, var(--a) 26%, var(--surface-2)), var(--surface-2)); }
-.mood__keys { position: absolute; inset: 16% 12%; display: grid; grid-template-columns: repeat(8, 1fr); gap: 5px; }
-.mood__keys span { border-radius: 3px; background: color-mix(in srgb, var(--keytop) 92%, #fff 6%); aspect-ratio: 1; }
-.mood__keys span.lit { background: color-mix(in srgb, var(--a) 82%, #fff 6%);
-  box-shadow: 0 0 8px color-mix(in srgb, var(--a) 60%, transparent); }
-.mood__sound { position: absolute; left: 10px; bottom: 10px; font-family: var(--mono); font-size: 10px;
-  color: var(--ink); background: rgba(0,0,0,.42); padding: 3px 8px; border-radius: 99px; opacity: .0; transition: opacity .2s; }
-.mood.playing .mood__sound { opacity: 1; }
-.mood__like { position: absolute; top: 9px; right: 9px; width: 34px; height: 34px; border-radius: 50%;
-  border: 0; background: rgba(0,0,0,.4); color: #fff; font-size: 16px; display: grid; place-items: center; backdrop-filter: blur(4px); }
-.mood__like.on { background: var(--crit); }
-.mood__meta { padding: 11px 13px 13px; }
-.mood__name { font-size: 14px; font-weight: 700; }
-.mood__tags { display: flex; gap: 5px; margin-top: 6px; flex-wrap: wrap; }
-.tag { font-family: var(--mono); font-size: 10.5px; color: var(--ink-soft); border: 1px solid var(--line);
-  padding: 3px 8px; border-radius: 99px; }
+@media (min-width: 640px) { .feed { columns: 3; } }
+.mood { break-inside: avoid; margin-bottom: 12px; position: relative; border-radius: 16px; overflow: hidden;
+  border: 1px solid var(--line); box-shadow: var(--shadow); cursor: pointer;
+  transition: transform .18s cubic-bezier(.22,1,.36,1), box-shadow .18s; }
+.mood:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.5), 0 0 0 1px color-mix(in srgb, var(--a) 35%, transparent); }
+.mood__frame { position: relative; aspect-ratio: var(--ar, 3/4); }
+.mood__scrim { position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to top, rgba(6,8,11,.86) 0%, rgba(6,8,11,.35) 34%, transparent 60%); }
+.mood__cap { position: absolute; left: 13px; right: 13px; bottom: 12px; }
+.mood__name { font-size: 15px; font-weight: 700; letter-spacing: -.01em; text-shadow: 0 1px 8px rgba(0,0,0,.5); }
+.mood__tags { display: flex; gap: 5px; margin-top: 7px; flex-wrap: wrap; }
+.tag { font-family: var(--mono); font-size: 10.5px; color: rgba(255,255,255,.82);
+  border: 1px solid rgba(255,255,255,.18); background: rgba(0,0,0,.25); padding: 3px 8px; border-radius: 99px; backdrop-filter: blur(4px); }
 .tag.on { color: var(--theme-accent); border-color: color-mix(in srgb, var(--theme-accent) 40%, var(--line)); }
+.mood__sound { position: absolute; left: 12px; top: 12px; font-family: var(--mono); font-size: 10px;
+  color: #fff; background: rgba(0,0,0,.5); padding: 4px 9px; border-radius: 99px; opacity: 0; transform: translateY(-4px);
+  transition: opacity .2s, transform .2s; backdrop-filter: blur(4px); }
+.mood.playing .mood__sound { opacity: 1; transform: none; }
+.mood__like { position: absolute; top: 9px; right: 9px; width: 36px; height: 36px; border-radius: 50%; z-index: 2;
+  border: 0; background: rgba(0,0,0,.42); color: #fff; font-size: 17px; display: grid; place-items: center; backdrop-filter: blur(6px);
+  transition: transform .12s, background .15s; }
+.mood__like:active { transform: scale(.85); }
+.mood__like.on { background: var(--crit); box-shadow: 0 0 14px color-mix(in srgb, var(--crit) 55%, transparent); }
 
 /* floating CTA (움직임 하나로 착지) */
 .float-cta { position: fixed; left: 50%; bottom: 76px; transform: translateX(-50%) translateY(120%);

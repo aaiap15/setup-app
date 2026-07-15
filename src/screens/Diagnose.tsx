@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { MOODS } from '../data'
-import { Keys } from '../components/Keys'
+import { KeebScene } from '../components/KeebScene'
 import { thock } from '../sound'
 import { toggleLikeMood, setDiagnosed, setFilters } from '../store'
 import { navigate } from '../router'
@@ -46,8 +46,8 @@ export function Diagnose() {
                 onClick={() => toggleMood(m.id)}
                 onPointerDown={() => thock(m.sound)}
               >
-                <div className="pick__img" style={{ ['--a' as string]: m.accent }}>
-                  <Keys n={24} seed={m.id.charCodeAt(1)} />
+                <div className="pick__img">
+                  <KeebScene accent={m.accent} seed={m.id.charCodeAt(1)} />
                 </div>
                 <div className="pick__cap">{m.emoji} {m.name}</div>
                 {moods.includes(m.id) && <span className="check">✓</span>}
